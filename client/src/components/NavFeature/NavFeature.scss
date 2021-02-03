@@ -1,0 +1,97 @@
+.navFeature {
+    width: 80px;
+    height: 100vh;
+    border-right: 1px solid #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    .logo {
+        height: 86px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+            width: 30px;
+            height: 30px;
+            fill: #0a80ff;
+        }
+    }
+    ul {
+        list-style: none;
+        flex-grow: 1;
+        padding: 0px;
+        li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .feature {
+                padding: 10px 20px;
+                color: #828282;
+                svg {
+                    width: 18px;
+                }
+            }
+            .feature.active,
+            .feature:hover {
+                border-radius: 7px;
+                color: #0a80ff;
+            }
+            .feature.active {
+                background-color: #e6e6e6;
+            }
+        }
+    }
+    .user-menu {
+        margin-top: auto;
+        ul {
+            margin: 0px;
+            li {
+                margin: auto;
+            }
+        }
+        .dropdown {
+            margin: 20px auto;
+            position: relative;
+            .avt img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            .dropmenu {
+                padding: 10px 0px;
+                position: absolute;
+                top: 0px;
+                transform: translate(10px, -95%);
+                visibility: hidden;
+                opacity: 0;
+                width: 130px;
+                background-color: white;
+                border: #82828221 1px solid;
+                box-shadow: 2px 2px 10px #82828259;
+                border-radius: 10px;
+                transition: all 0.2s;
+                hr {
+                    opacity: 0.3;
+                }
+                button {
+                    width: 100%;
+                    text-align: left;
+                    padding: 5px 15px;
+                    background-color: white;
+                    border: none;
+                    font-size: 1em;
+                    &:hover {
+                        background-color: #e6e6e6;
+                    }
+                }
+            }
+        }
+        .dropdown.show {
+            .dropmenu {
+                transform: translate(10px, -105%);
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+}
