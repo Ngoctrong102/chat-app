@@ -1,0 +1,29 @@
+.form-conversation {
+    border-top: 1px solid #e6e6e6;
+    padding: 15px 20px;
+    form {
+        display: flex;
+        button,
+        input {
+            margin: 0px 5px;
+            border: 1px solid #e6e6e6;
+            padding: 8px 14px 6px;
+        }
+        button {
+            background-color: #e6e6e6;
+            border-radius: 3px;
+            line-height: 14px;
+            font-size: 14px;
+            &.submit {
+                background-color: #0062e1;
+                border: 1px solid #0062e1;
+                color: white;
+            }
+        }
+        .mess-content {
+            flex-grow: 1;
+            outline: #0062e1;
+            font-size: 15px;
+        }
+    }
+}
