@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import './NavFeature.scss';
 
 import { changeFeature } from '../../store/actions/nav';
-const NavFeature = ({ feature, changeFeature }) => {
+import { logout } from '../../store/actions/auth';
+const NavFeature = ({ feature, changeFeature, logout }) => {
     useEffect(() => {
         document.querySelectorAll('.feature').forEach(feature => {
             feature.addEventListener("click", (e) => {
@@ -57,7 +58,7 @@ const NavFeature = ({ feature, changeFeature }) => {
                                 <button>Profile</button>
                                 <button>Settings</button>
                                 <hr />
-                                <button>Logout</button>
+                                <button onClick={logout}>Logout</button>
                             </div>
                         </div>
                     </li>
@@ -75,7 +76,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeFeature: (feature) => dispatch(changeFeature(feature))
+        changeFeature: (feature) => dispatch(changeFeature(feature)),
+        logout: () => dispatch(logout())
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavFeature);
