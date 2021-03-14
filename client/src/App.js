@@ -4,30 +4,31 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import './App.css';
 // component
-import Navigator from './containers/navigator/navigator'
-import Conversation from './containers/conversation/conversation';
 import LoginPage from './containers/auth/LoginPage/LoginPage';
 import SignUpPage from './containers/auth/SignUp/SignUpPage';
 //actions
 import { fetchUserInfor } from './store/actions/auth';
+// helpers
+import getToken from './helpers/getToken';
+import getSocket from './configs/socket';
+import ChatApp from './containers/chatApp/ChatApp';
+
 
 function App({ user, fetchUserInfor }) {
   useEffect(() => {
     if (!user) {
-      const token = localStorage.getItem('token');
+      const token = getToken();
       if (token)
         fetchUserInfor(token);
     }
   }, [])
+
   return (
     <Router>
       <Switch>
         <Route exact path="/">
           {user ?
-            <div className="app">
-              <Navigator />
-              <Conversation />
-            </div>
+            <ChatApp socket={getSocket(getToken())} user={user} />
             :
             <Redirect to="/login" />
           }
@@ -40,17 +41,20 @@ function App({ user, fetchUserInfor }) {
           }
         </Route>
         <Route path="/signup">
-          <SignUpPage />
+          {user ?
+            <Redirect to="/" />
+            :
+            <SignUpPage />
+          }
         </Route>
       </Switch>
-
-    </Router>
+    </Router >
   );
 }
 
 function mapStateToProps(state) {
   return {
-    user: state.authState.user
+    user: state.userState.user
   }
 }
 function mapDispatchToProps(dispatch) {

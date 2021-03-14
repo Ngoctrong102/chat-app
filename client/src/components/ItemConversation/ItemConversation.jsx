@@ -2,7 +2,7 @@ import React from 'react';
 
 import './ItemConversation.scss';
 
-const ItemConversation = ({ conversations }) => {
+const ItemConversation = () => {
     const toggleMenuAction = (e) => {
         e.preventDefault();
         if (e.currentTarget.classList.contains('show')) {

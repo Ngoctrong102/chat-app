@@ -1,5 +1,5 @@
 .navFeature {
-    width: 80px;
+    flex: 0;
     height: 100vh;
     border-right: 1px solid #e6e6e6;
     display: flex;
@@ -23,20 +23,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
             .feature {
                 padding: 10px 20px;
-                color: #828282;
+                margin: 0px 5px;
+                color: black;
                 svg {
                     width: 18px;
+                }
+                &.notify::after {
+                    content: '';
+                    height: 7px;
+                    width: 7px;
+                    background-color: #dc3545;
+                    border-radius: 50%;
+                    position: absolute;
+                    z-index: 10;
+                    top: 10px;
+                    right: 13px;
+                    border: 3px solid white;
                 }
             }
             .feature.active,
             .feature:hover {
-                border-radius: 7px;
                 color: #0a80ff;
             }
             .feature.active {
                 background-color: #e6e6e6;
+                border-radius: 7px;
             }
         }
     }
@@ -77,6 +91,7 @@
                     width: 100%;
                     text-align: left;
                     padding: 5px 15px;
+                    margin: 1px 0px;
                     background-color: white;
                     border: none;
                     font-size: 1em;

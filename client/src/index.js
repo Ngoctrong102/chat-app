@@ -9,9 +9,10 @@ import reportWebVitals from './reportWebVitals';
 import thunk from 'redux-thunk';
 import rootReducer from './store/reducers';
 
-// Note: this API requires redux@>=3.1.0
-const store = createStore(rootReducer, applyMiddleware(thunk));
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
+  applyMiddleware(thunk)
+));
 ReactDOM.render(
   <Provider store={store}>
     <App />

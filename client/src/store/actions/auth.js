@@ -1,14 +1,30 @@
 import User from '../../service/User';
-export const handleLogin = (username, password) => async dispatch => {
-    var respone = await User.login(username, password);
-    localStorage.setItem('token', respone.token);
-    dispatch({
-        type: "LOGIN",
-        payload: {
-            user: respone.user,
-            token: respone.token
+import setToken from '../../helpers/setToken';
+import removeToken from '../../helpers/removeToken';
+
+
+export const handleLogin = (email, password, rememberMe) => async dispatch => {
+    try {
+        var respone = await User.login(email, password);
+        if (respone.status === "Error") {
+            return dispatch({
+                type: "LOGIN_ERR",
+                payload: {
+                    errMessage: respone.message
+                }
+            })
         }
-    })
+        setToken(rememberMe, respone.token);
+        dispatch({
+            type: "LOGIN",
+            payload: {
+                user: respone.user,
+                token: respone.token
+            }
+        })
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 export const fetchUserInfor = (token) => async dispatch => {
@@ -26,14 +42,16 @@ export const fetchUserInfor = (token) => async dispatch => {
 }
 
 export const logout = () => {
+    removeToken();
     return {
         type: "LOGOUT"
     }
 }
 
-export const handleSignUp = (username, password, repass) => async dispatch => {
+export const handleSignUp = (email, username, password, repass) => async dispatch => {
     try {
-        var respone = await User.signUp(username, password, repass);
+        var respone = await User.signUp(email, username, password, repass);
+        localStorage.setItem('token', respone.token);
         dispatch({
             type: "LOGIN",
             payload: {
@@ -41,5 +59,14 @@ export const handleSignUp = (username, password, repass) => async dispatch => {
                 token: respone.token
             }
         })
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
+export const resetErr = () => {
+    return {
+        type: "RESET_ERR"
     }
 }

@@ -1,14 +1,22 @@
 const initState = {
-    feature: "Chat"
+    feature: "Chat",
+    // showFormProfile: false,
+    // showPopUp: true,
+    popUp: ''
 }
 
 const navigatorReducer = (state = initState, action) => {
     switch (action.type) {
         case "CHANGE_FEATURE":
             {
-                const newState = {...state, feature: action.payload.feature };
-                // newState.feature = action.payload.feature;
-                return newState;
+                return {...state, feature: action.payload.feature };
+            }
+        case "TOGGLE_POP_UP":
+            {
+                return {
+                    ...state,
+                    popUp: action.payload.popUp
+                }
             }
         default:
             {

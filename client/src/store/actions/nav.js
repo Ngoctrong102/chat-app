@@ -6,3 +6,12 @@ export const changeFeature = (feature) => {
         }
     };
 }
+
+export function togglePopUp(formName = '') {
+    return {
+        type: "TOGGLE_POP_UP",
+        payload: {
+            popUp: formName
+        }
+    }
+}

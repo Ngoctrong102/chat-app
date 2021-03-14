@@ -1,6 +1,7 @@
 .sidebar-body {
     flex-grow: 1;
     overflow-y: scroll;
+    position: relative;
     ul {
         list-style: none;
         padding: 0px;
@@ -8,6 +9,7 @@
     }
     &::-webkit-scrollbar {
         width: 5px;
+        position: absolute;
     }
     &::-webkit-scrollbar-track {
         background: rgba(255, 255, 255, 0);

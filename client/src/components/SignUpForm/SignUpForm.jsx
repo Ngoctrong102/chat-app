@@ -8,13 +8,14 @@ import { handleSignUp } from '../../store/actions/auth';
 import { Link } from 'react-router-dom';
 
 const LoginForm = ({ handleSignUp }) => {
+  var [email, setEmail] = useState('');
   var [username, setUsername] = useState('');
   var [password, setPassword] = useState('');
   var [repass, setRepass] = useState('');
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    handleSignUp(username, password, repass);
+    handleSignUp(email, username, password, repass);
   }
   return (
     <div className="login-wrapper">
@@ -23,10 +24,19 @@ const LoginForm = ({ handleSignUp }) => {
       <form className="login-form" onSubmit={handleSubmitForm}>
         <div className="form-group">
           <input
+            type="email"
+            name="email"
+            id="Email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
             type="text"
             name="username"
             id="username"
-            placeholder="Username or email"
+            placeholder="Your name"
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -40,12 +50,21 @@ const LoginForm = ({ handleSignUp }) => {
           />
         </div>
         <div className="form-group">
-          <input type="submit" value="Sign in" />
+          <input
+            type="password"
+            name="repass"
+            id="repass"
+            placeholder="Re-Password"
+            onChange={(e) => setRepass(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input type="submit" value="Sign up" />
         </div>
         <hr />
         <div className="sign-up-tag">
-          <p>Don't have an account?</p>
-          <Link to="/signup" className="link">Sign up</Link>
+          <p>Have an account?</p>
+          <Link to="/login" className="link">Sign in</Link>
         </div>
       </form>
     </div>
@@ -54,7 +73,7 @@ const LoginForm = ({ handleSignUp }) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleSignUp: (username, password, repass) => dispatch(handleSignUp(username, password, repass))
+    handleSignUp: (email, username, password, repass) => dispatch(handleSignUp(email, username, password, repass))
   }
 }
 

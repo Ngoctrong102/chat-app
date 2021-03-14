@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './ChatSidebar.scss';
-import ListConversation from '../ListConversation/ListConversation/ListConversation';
+import ListConversation from '../../containers/ListConversation/ListConversation';
 
 const ChatSidebar = ({ }) => {
     return (
@@ -24,7 +24,7 @@ const ChatSidebar = ({ }) => {
             <form action="">
                 <input type="text" placeholder="Search chats" />
             </form>
-            <ListConversation conversations={[{ title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" }, { title: "123" },]} />
+            <ListConversation />
         </div>
     );
 }

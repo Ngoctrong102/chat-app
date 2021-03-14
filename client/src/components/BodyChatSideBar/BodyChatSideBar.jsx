@@ -1,10 +1,11 @@
 import React from 'react';
 
-import './ListConversation.scss';
+import './BodyChatSideBar.scss';
 
 import ItemConversation from '../ItemConversation/ItemConversation';
+import { connect } from 'react-redux';
 
-const ListConversation = ({ conversations }) => {
+const BodyChatSideBar = ({ conversations }) => {
     const itemsConversation = conversations.map((conversation, index) => {
         return <ItemConversation key={index} title={conversation.title} />
     })
@@ -17,6 +18,16 @@ const ListConversation = ({ conversations }) => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        conversations: state.userState.conversations
+    };
+}
 
+const mapActionToProps = dispatch => {
+    return {
 
-export default ListConversation;
+    };
+}
+
+export default connect(mapStateToProps, mapActionToProps)(BodyChatSideBar);

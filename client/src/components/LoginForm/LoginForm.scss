@@ -15,9 +15,10 @@
         }
     }
     h5 {
-        font-size: 1.25em;
+        font-size: 2em;
         text-align: center;
         color: #212529;
+        margin: 10px;
     }
     .login-form {
         .form-group {
@@ -38,6 +39,11 @@
             &.flex {
                 display: flex;
                 justify-content: space-between;
+            }
+            .form-text.text-danger {
+                color: red;
+                padding: 5px 0px 0px 10px;
+                margin: 0;
             }
         }
     }
