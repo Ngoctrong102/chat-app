@@ -14,7 +14,7 @@ export const pushReqFriends = (req) => {
     return {
         type: 'PUSH_REQ_FRIEND',
         payload: {
-            req
+            from: req.from
         }
     }
 }

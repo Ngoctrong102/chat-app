@@ -41,7 +41,9 @@ module.exports = {
                 };
                 return res.json({
                     user: userData,
-                    token: jwt.sign(userData, SECRET_CODE)
+                    token: jwt.sign(userData, SECRET_CODE),
+                    friends: user.friends,
+                    reqFriends: user.reqFriends
                 })
             } else {
                 res.json({ status: "Error", message: "Email or password is incorect" });
@@ -53,7 +55,7 @@ module.exports = {
     fetchInfor: async(req, res) => {
         try {
             var userData = jwt.decode(req.body.token, SECRET_CODE);
-            var user = await UserService.findUser(userData);
+            var user = await UserService.fetchInfor(userData);
 
             if (user) {
                 var userData = {
@@ -63,6 +65,8 @@ module.exports = {
                 };
                 return res.json({
                     user: userData,
+                    friends: user.friends,
+                    reqFriends: user.reqFriends
                 })
             } else {
                 return res.json({

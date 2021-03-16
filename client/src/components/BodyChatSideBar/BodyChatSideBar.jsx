@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 const BodyChatSideBar = ({ conversations }) => {
     const itemsConversation = conversations.map((conversation, index) => {
-        return <ItemConversation key={index} title={conversation.title} />
+        return <ItemConversation key={index} />
     })
     return (
         <div className="sidebar-body">

@@ -14,14 +14,11 @@ export const handleLogin = (email, password, rememberMe) => async dispatch => {
                 }
             })
         }
-        setToken(rememberMe, respone.token);
         dispatch({
             type: "LOGIN",
-            payload: {
-                user: respone.user,
-                token: respone.token
-            }
+            payload: respone
         })
+        setToken(rememberMe, respone.token);
     } catch (err) {
         console.error(err)
     }
@@ -32,9 +29,7 @@ export const fetchUserInfor = (token) => async dispatch => {
         const respone = await User.fetchInfor(token);
         dispatch({
             type: "FETCH_USER_INFOR",
-            payload: {
-                user: respone.user
-            }
+            payload: respone
         })
     } catch (err) {
         console.error(err + " lỗi nè");

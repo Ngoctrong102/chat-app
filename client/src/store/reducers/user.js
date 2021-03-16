@@ -1,10 +1,11 @@
 const initState = {
     user: null,
     token: localStorage.getItem("token") || null,
-    error: false,
-    errMessage: '',
+    friends: [],
     reqFriends: [],
-    conversations: []
+    conversations: [],
+    error: false,
+    errMessage: ''
 
 }
 
@@ -15,7 +16,9 @@ const userReducer = (state = initState, action) => {
                 return {
                     ...state,
                     user: action.payload.user,
-                    token: action.payload.token
+                    token: action.payload.token,
+                    friends: action.payload.friends,
+                    reqFriends: action.payload.reqFriends
                 };
 
             }
@@ -23,12 +26,15 @@ const userReducer = (state = initState, action) => {
             {
                 return {
                     ...state,
-                    user: action.payload.user
+                    user: action.payload.user,
+                    friends: action.payload.friends,
+                    reqFriends: action.payload.reqFriends
                 }
             }
         case "LOGOUT":
             {
                 return {
+                    ...state,
                     user: null,
                     token: null
                 }
@@ -60,7 +66,7 @@ const userReducer = (state = initState, action) => {
             {
                 return {
                     ...state,
-                    reqFriends: [action.payload.req, ...state.reqFriends]
+                    reqFriends: [action.payload.from, ...state.reqFriends]
                 }
             }
         default:

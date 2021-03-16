@@ -8,12 +8,12 @@ class UserService {
         return user;
     }
     async login(email, password) {
-        var user = await User.findOne({ email }).exec();
+        var user = await User.findOne({ email }).populate('friends', ['username', 'avatar', '_id']).populate('reqFriends', ['username', 'avatar', '_id']).exec();
         if (user && checkPassword(password, user.password)) return user;
         else return null;
     }
-    async findUser(userData) {
-        var user = await User.findOne({ _id: userData._id }).exec();
+    async fetchInfor(userData) {
+        var user = await User.findOne({ _id: userData._id }).populate('friends', ['username', 'avatar', '_id']).populate('reqFriends', ['username', 'avatar', '_id']).exec();
         if (user) return user;
         else return null;
     }
@@ -33,6 +33,26 @@ class UserService {
             avatar: true
         });
         return listUser;
+    }
+    async reqFriend(from, to) {
+        var respone = await User.updateOne({ _id: to }, { $push: { reqFriends: from._id } });
+        if (respone.nModified) {
+            return true;
+        }
+        return false
+    }
+    async addFriend(from, to) {
+        var respone = await User.updateOne({ _id: to }, {
+            $push: { friends: from },
+            $pull: { reqFriends: from }
+        });
+        if (respone.nModified == 0) throw Error('Error database');
+        var respone = await User.updateOne({ _id: from }, {
+            $push: { friends: to },
+            $pull: { reqFriends: to }
+        });
+        if (respone.nModified == 0) throw Error('Error database');
+        return true;
     }
 }
 

@@ -4,19 +4,10 @@ import './NavFeature.scss';
 
 import { changeFeature, togglePopUp } from '../../store/actions/nav';
 import { logout } from '../../store/actions/auth';
-import { SocketContext } from '../../containers/chatApp/ChatApp';
-import { pushReqFriends } from '../../store/actions/user';
-const NavFeature = ({ feature, changeFeature, logout, togglePopUp, user, reqFriends, pushReqFriends }) => {
-
-    const socket = useContext(SocketContext);
+const NavFeature = ({ feature, changeFeature, logout, togglePopUp, user, reqFriends }) => {
 
     const menuUser = useRef();
-    useEffect(() => {
-        socket.on('REQ_ADD_FRIEND', (data) => {
-            console.log(data.req)
-            pushReqFriends(data.req)
-        })
-    }, [])
+
     let toggleMenuUser = () => {
         menuUser.current.classList.toggle('show');
     }
@@ -117,7 +108,6 @@ const mapDispatchToProps = dispatch => {
         changeFeature: (feature) => dispatch(changeFeature(feature)),
         logout: () => dispatch(logout()),
         togglePopUp: (formName) => dispatch(togglePopUp(formName)),
-        pushReqFriends: (req) => dispatch(pushReqFriends(req))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavFeature);

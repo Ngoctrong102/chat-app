@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { connect } from 'react-redux';
+import { SocketContext } from '../../containers/chatApp/ChatApp';
 
 import './ItemReqFriend.scss';
 
-const ItemReqFriend = ({ reqFriend }) => {
+const ItemReqFriend = ({ reqFriend, user }) => {
+  const socket = useContext(SocketContext);
+  const acceptReqFriend = () => {
+    socket.emit('ACCEPT_REQ_FRIEND', { from: user._id, to: reqFriend._id })
+  }
   return (
     <li className="item-add-friend">
       <div className="avt">
@@ -13,14 +19,25 @@ const ItemReqFriend = ({ reqFriend }) => {
           <h4>{reqFriend.username}</h4>
         </div>
       </div>
-      <button className="accept">
-        <i class="fas fa-check"></i>
+      <button className="accept" onClick={() => acceptReqFriend()}>
+        <i className="fas fa-check"></i>
       </button>
       <button className="refuse">
-        <i class="fas fa-times"></i>
+        <i className="fas fa-times"></i>
       </button>
     </li>
   )
 }
 
-export default ItemReqFriend;
+const mapStateToProps = state => {
+  return {
+    user: state.userState.user
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemReqFriend);
