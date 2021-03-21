@@ -1,15 +1,17 @@
 import React from 'react';
 
 import './HeaderConversation.scss'
-const HeaderConversation = ({ }) => {
+const HeaderConversation = ({ conversation, user }) => {
+    var users = conversation.users.filter(u => u._id !== user._id);
     return (
         <header className="header-conversation">
             <div className="header-user">
                 <div className="avt active">
-                    <img src="avt-default.jpg" alt="" />
+
+                    {users.map((u, i) => <img src={"http://localhost:8888/uploads/" + u.avatar} alt="" key={i} />)}
                 </div>
                 <div>
-                    <h4>Ngọc Trọng 102</h4>
+                    <h4>{users.map(u => u.username).join(', ')}</h4>
                     <small>Đang hoạt động</small>
                 </div>
             </div>

@@ -55,6 +55,15 @@ class User {
             })
             .then(res => res.json())
     }
+    getConversation(userID, friendID) {
+        return fetch(API_URL + "/conversation?" + serialize({ userID, friendID }), {
+                method: 'get',
+                headers: {
+                    'x-access-token': getToken()
+                }
+            })
+            .then(res => res.json())
+    }
 }
 
 

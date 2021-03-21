@@ -51,7 +51,9 @@ export const handleSignUp = (email, username, password, repass) => async dispatc
             type: "LOGIN",
             payload: {
                 user: respone.user,
-                token: respone.token
+                token: respone.token,
+                friends: respone.friends,
+                reqFriends: respone.reqFriends
             }
         })
     } catch (err) {

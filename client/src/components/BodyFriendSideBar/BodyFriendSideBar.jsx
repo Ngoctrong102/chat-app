@@ -5,8 +5,18 @@ import './BodyFriendSideBar.scss';
 import { connect } from 'react-redux';
 import ItemReqFriend from '../ItemReqFriend/ItemReqFriend';
 import ItemFriend from '../ItemFriend/ItemFriend';
+import { SocketContext } from '../../containers/chatApp/ChatApp';
+import { addNewFriend } from '../../store/actions/user';
 
-const BodyFriendSideBar = ({ reqFriends, friends }) => {
+const BodyFriendSideBar = ({ reqFriends, friends, addNewFriend }) => {
+
+  const socket = useContext(SocketContext);
+
+  useEffect(() => {
+    socket.on('ACCEPT_REQ_FRIEND', (data) => {
+      addNewFriend(data.friend);
+    })
+  }, [])
 
   const itemsReqFriends = reqFriends.map((req, index) => {
     return <ItemReqFriend reqFriend={req} key={index} />
@@ -21,7 +31,7 @@ const BodyFriendSideBar = ({ reqFriends, friends }) => {
   }
   return (
     <div className="friend-sidebar-body">
-      <div className="header notify" onClick={toggleList}>
+      <div className={`header ${reqFriends.length ? "notify" : ""}`} onClick={toggleList}>
         <h4>Request Friend</h4>
       </div>
       <ul className="req-friend-list">
@@ -46,6 +56,7 @@ const mapStateToProps = state => {
 
 const mapActionToProps = dispatch => {
   return {
+    addNewFriend: (friend) => dispatch(addNewFriend(friend))
   };
 }
 

@@ -21,7 +21,9 @@ module.exports = {
                 return res.json({
                     _id: user._id,
                     user: userData,
-                    token: jwt.sign(userData, SECRET_CODE)
+                    token: jwt.sign(userData, SECRET_CODE),
+                    friends: user.friends,
+                    reqFriends: user.reqFriends
                 });
             }
 
@@ -66,7 +68,8 @@ module.exports = {
                 return res.json({
                     user: userData,
                     friends: user.friends,
-                    reqFriends: user.reqFriends
+                    reqFriends: user.reqFriends,
+                    conversations: user.conversations
                 })
             } else {
                 return res.json({
@@ -81,6 +84,7 @@ module.exports = {
     updateProfile: async(req, res) => {
         try {
             var userData = {...req.body };
+            userData.avatar = req.file.originalname;
             var respone = await UserService.updateProfile(req.user._id, userData);
             if (respone.ok) res.json({ user: userData });
             else return res.json({ status: "Error", message: "Database error!" });
@@ -90,7 +94,7 @@ module.exports = {
     },
     searchFriends: async(req, res) => {
         try {
-            var listUser = await UserService.searchFriends(req.query.keyword);
+            var listUser = await UserService.searchFriends(req.user._id, req.query.keyword);
             res.json({ listUser });
         } catch (err) {
             console.log(err);

@@ -5,7 +5,9 @@ const initState = {
     reqFriends: [],
     conversations: [],
     error: false,
-    errMessage: ''
+    errMessage: '',
+    currentConversation: 0,
+    newMessage: false
 
 }
 
@@ -26,18 +28,15 @@ const userReducer = (state = initState, action) => {
             {
                 return {
                     ...state,
-                    user: action.payload.user,
-                    friends: action.payload.friends,
-                    reqFriends: action.payload.reqFriends
+                    // user: action.payload.user,
+                    // friends: action.payload.friends,
+                    // reqFriends: action.payload.reqFriends
+                    ...action.payload
                 }
             }
         case "LOGOUT":
             {
-                return {
-                    ...state,
-                    user: null,
-                    token: null
-                }
+                return initState;
             }
         case "LOGIN_ERR":
             {
@@ -59,7 +58,7 @@ const userReducer = (state = initState, action) => {
             {
                 return {
                     ...state,
-                    user: {...action.payload.user }
+                    user: {...state.user, ...action.payload.user }
                 }
             }
         case "PUSH_REQ_FRIEND":
@@ -67,6 +66,76 @@ const userReducer = (state = initState, action) => {
                 return {
                     ...state,
                     reqFriends: [action.payload.from, ...state.reqFriends]
+                }
+            }
+        case "ADD_NEW_FRIEND":
+            {
+                return {
+                    ...state,
+                    friends: [...state.friends, action.payload.friend],
+                    reqFriends: state.reqFriends.filter(req => req._id !== action.payload.friend._id)
+                }
+            }
+        case "OPEN_CONVERSATION":
+            {
+                var conversationIndex = state.conversations.findIndex(con => con._id == action.payload.conversation._id)
+                if (conversationIndex !== -1) {
+                    return {
+                        ...state,
+                        currentConversation: conversationIndex
+                    }
+                } else {
+                    return {
+                        ...state,
+                        currentConversation: 0,
+                        conversations: [action.payload.conversation, ...state.conversations]
+                    }
+                }
+
+            }
+        case "NEW_MESSAGE":
+            {
+                let newConversations = state.conversations.map(con => {
+                    if (con._id == action.payload.conversationID) {
+                        return {
+                            ...con,
+                            messages: [...con.messages, action.payload.message],
+                            newMessage: state.user._id !== action.payload.message.user._id
+                        }
+                    } else return con;
+                })
+                return {
+                    ...state,
+                    conversations: newConversations,
+                    newMessage: state.user._id !== action.payload.message.user._id
+                }
+            }
+
+        case "FIRST_MESSAGE":
+            {
+                var conIndex = state.conversations.findIndex(con => con._id == action.payload.oldID);
+                if (conIndex != -1) {
+                    var newCons = [...state.conversations];
+                    newCons[conIndex] = action.payload.conversation
+                    return {
+                        ...state,
+                        conversations: newCons
+                    }
+                } else {
+                    return {
+                        ...state,
+                        conversations: [action.payload.conversation, ...state.conversations]
+                    }
+                }
+            }
+        case "CHANGE_CONVERSATION":
+            {
+                // if (state.conversations[action.payload.index].newMessage) {
+                //     state.conversations[action.payload.index].newMessage = false;
+                // }
+                return {
+                    ...state,
+                    currentConversation: action.payload.index
                 }
             }
         default:

@@ -7,4 +7,12 @@
     display: flex;
     flex-direction: column;
     border-left: 1px solid #b6b6b6ad;
+    .alt-image {
+        height: 250px;
+        width: 250px;
+    }
+    &.alt {
+        justify-content: center;
+        align-items: center;
+    }
 }

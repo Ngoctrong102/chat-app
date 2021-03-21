@@ -4,10 +4,9 @@ import './BodyChatSideBar.scss';
 
 import ItemConversation from '../ItemConversation/ItemConversation';
 import { connect } from 'react-redux';
-
-const BodyChatSideBar = ({ conversations }) => {
+const BodyChatSideBar = ({ conversations, user }) => {
     const itemsConversation = conversations.map((conversation, index) => {
-        return <ItemConversation key={index} />
+        return <ItemConversation conversation={conversation} user={user} key={index} index={index} />
     })
     return (
         <div className="sidebar-body">
@@ -20,13 +19,13 @@ const BodyChatSideBar = ({ conversations }) => {
 
 const mapStateToProps = state => {
     return {
-        conversations: state.userState.conversations
+        conversations: state.userState.conversations,
+        user: state.userState.user
     };
 }
 
 const mapActionToProps = dispatch => {
     return {
-
     };
 }
 

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/chat-app', { useNewUrlParser: true, useUnifiedTopology: true })
+process.env.DB_URL = "mongodb+srv://ngoctrong102:v.n.t.12345@cluster0.3gm6d.mongodb.net/Chat-app?retryWrites=true&w=majority";
+var DB_URL = process.env.DB_URL || 'mongodb://localhost/chat-app';
+mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((res) => {
         console.log("Connect database successfully")
     })

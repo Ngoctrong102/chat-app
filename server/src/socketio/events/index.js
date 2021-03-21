@@ -1,7 +1,8 @@
+const fs = require("fs");
+const path = require("path");
+const eventsPath = path.resolve(__dirname);
+
 module.exports = io => {
-    const fs = require("fs");
-    const path = require("path");
-    const eventsPath = path.resolve(__dirname);
     fs.readdir(eventsPath, (err, files) => {
         if (err) {
             console.error(err);

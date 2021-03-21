@@ -3,6 +3,12 @@ li.item-conversation {
     padding: 15px 20px;
     display: flex;
     max-width: 100%;
+    &.has-message {
+        background-color: #0a80ff1e;
+        h4 {
+            color: #0a80ff !important;
+        }
+    }
     .avt-conversation {
         flex: 0 0;
         width: 50px;
@@ -20,6 +26,9 @@ li.item-conversation {
             flex: 1 1;
             width: 200px;
             h4 {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 margin: 0px 20px 5px 20px;
                 color: #3d3d3d;
             }

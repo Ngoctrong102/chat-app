@@ -9,6 +9,11 @@ var storage = multer.diskStorage({
     }
 })
 
-var upload = multer({ storage });
+var upload = multer({
+    storage,
+    fileFilter: function(req, file, cb) {
+        cb(null, true)
+    }
+});
 
 module.exports = upload;

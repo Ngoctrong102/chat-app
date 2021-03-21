@@ -42,10 +42,10 @@ app.use(express.json())
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-
 app.use(parseUser);
 
 app.use('/user', require('./src/routes/user.router'))
+app.use('/conversation', require('./src/routes/conversation.router'))
 
 server.listen(PORT, () => {
     console.log('Listening at port ' + PORT);

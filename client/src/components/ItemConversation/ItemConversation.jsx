@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { changeConversation } from '../../store/actions/conversations';
 
 import './ItemConversation.scss';
 
-const ItemConversation = () => {
+const ItemConversation = ({ conversation, user, changeConversation, index }) => {
     const toggleMenuAction = (e) => {
         e.preventDefault();
         if (e.currentTarget.classList.contains('show')) {
@@ -14,14 +16,20 @@ const ItemConversation = () => {
             e.currentTarget.classList.add('show');
         }
     }
+    var users = conversation.users.filter(u => u._id != user._id);
     return (
-        <li className="item-conversation">
+        <li className={`item-conversation ${conversation.newMessage ? "has-message" : ''}`}
+            onClick={(e) => {
+                // if (e.currentTarget != e.target) return false;
+                changeConversation(index)
+                // e.stopPropagation();
+            }}>
             <div className="avt-conversation">
-                <img src="avt-default.jpg" alt="" />
+                {users.map((u, i) => <img src={"http://localhost:8888/uploads/" + u.avatar} key={i} />)}
             </div>
             <div className="body-item-conversation new-mess ">
                 <div>
-                    <h4>Ngọc Trọng 102</h4>
+                    <h4>{users.map(u => u.username).join(', ')}</h4>
                     <p>Tin nhắn gần nhất sẽ hiện ở đây sasasasasasasa</p>
                 </div>
                 <div className="item-actions">
@@ -38,5 +46,10 @@ const ItemConversation = () => {
         </li>
     )
 }
+const mapActionToProps = dispatch => {
+    return {
+        changeConversation: (index) => dispatch(changeConversation(index))
+    };
+}
 
-export default ItemConversation;
+export default connect(null, mapActionToProps)(ItemConversation);

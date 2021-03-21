@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import FormProfile from '../../components/FormProfile/FormProfile';
 import FormAddFriends from '../../components/FormAddFriends/FormAddFriends';
+import FormCreateGroupChat from '../../components/FormCreateGroupChat/FormCreateGroupChat';
 
 import { togglePopUp } from '../../store/actions/nav';
 
@@ -28,6 +29,9 @@ const FormPopUp = ({ togglePopUp, popUp }) => {
         return (
           <FormAddFriends />
         )
+      }
+      case 'CREATE_GROUP_CHAT': {
+        return <FormCreateGroupChat />
       }
     }
   }

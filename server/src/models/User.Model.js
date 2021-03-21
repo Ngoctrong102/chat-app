@@ -5,8 +5,9 @@ var UserSchema = new mongoose.Schema({
     username: { type: String, require: true },
     password: { type: String, require: true },
     avatar: { type: String, default: 'avt-default.jpg' },
-    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    reqFriends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    friends: { type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], default: [] },
+    reqFriends: { type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], default: [] },
+    conversations: { type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' }], default: [] }
 })
 
 

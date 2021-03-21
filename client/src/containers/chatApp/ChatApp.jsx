@@ -6,11 +6,20 @@ import { connect } from 'react-redux';
 import Navigator from '../navigator/navigator'
 import Conversation from '../conversation/conversation';
 import FormPopUp from '../FormPopUp/FormPopUp';
+import { addNewMessage, firstMessage } from '../../store/actions/conversations'
 
 let SocketContext = createContext();
 
-const ChatApp = ({ popUp, socket }) => {
+const ChatApp = ({ popUp, socket, addNewMessage, firstMessage }) => {
   useEffect(() => {
+    socket.on('NEW_MESSAGE', ({ conversationID, message }) => {
+      // console.log(data)
+      addNewMessage(conversationID, message);
+    })
+    socket.on('FIRST_MESSAGE', ({ oldID, conversation }) => {
+      // console.log(data)
+      firstMessage(oldID, conversation);
+    })
     return () => socket.disconnect();
   }, [])
   return (
@@ -31,6 +40,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
+    addNewMessage: (conversationID, message) => dispatch(addNewMessage(conversationID, message)),
+    firstMessage: (oldID, conversation) => dispatch(firstMessage(oldID, conversation))
   }
 }
 
