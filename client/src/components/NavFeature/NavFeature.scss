@@ -1,7 +1,7 @@
 .navFeature {
     flex: 0;
     height: 100vh;
-    border-right: 1px solid #e6e6e6;
+    border: 1px solid #e6e6e6;
     display: flex;
     flex-direction: column;
     .logo {
@@ -15,7 +15,8 @@
             fill: #0a80ff;
         }
     }
-    ul {
+    ul,
+    .list-feature {
         list-style: none;
         flex-grow: 1;
         padding: 0px;
@@ -108,6 +109,22 @@
                 opacity: 1;
                 z-index: 1000;
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 824px) {
+    .navFeature {
+        flex-direction: row;
+        align-items: center;
+        .list-feature {
+            margin: 8px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .logo,
+        .user-menu {
+            display: none;
         }
     }
 }

@@ -1,5 +1,6 @@
 .sidebar-body {
-    flex-grow: 1;
+    flex: 1;
+    flex-basis: 50px;
     overflow-y: scroll;
     position: relative;
     ul {

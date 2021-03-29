@@ -6,7 +6,7 @@ const initState = {
     conversations: [],
     error: false,
     errMessage: '',
-    currentConversation: 0,
+    currentConversation: null,
     newMessage: false
 
 }

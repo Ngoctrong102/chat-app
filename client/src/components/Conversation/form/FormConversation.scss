@@ -23,9 +23,11 @@
             }
         }
         .mess-content {
-            flex-grow: 1;
+            flex: 1 1;
             outline: #0062e1;
             font-size: 15px;
+            flex-basis: 100px;
+            width: 100px;
         }
         .icon-wrapper {
             position: relative;
@@ -43,5 +45,11 @@
                 }
             }
         }
+    }
+}
+
+@media only screen and (max-width: 824px) {
+    .form-conversation {
+        padding: 10px;
     }
 }

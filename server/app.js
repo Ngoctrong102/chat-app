@@ -13,7 +13,7 @@ global.__basedir = __dirname;
 
 const io = require('socket.io')(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origins: ["http://localhost:3000", "http://192.168.0.104:3000"],
         methods: ["GET", "POST"]
     }
 });
@@ -39,7 +39,10 @@ const PORT = process.env.PORT || 8888;
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(cors());
+app.use(cors({
+    origins: ["http://localhost:3000", "http://192.168.0.104:3000"],
+    optionsSuccessStatus: 200
+}));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(parseUser);

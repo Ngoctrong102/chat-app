@@ -1,12 +1,11 @@
 .conversation {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 1;
-    width: 75%;
+    flex: 1 1;
+    flex-basis: 450px;
     height: 100%;
     display: flex;
     flex-direction: column;
     border-left: 1px solid #b6b6b6ad;
+    max-width: 100vw;
     .alt-image {
         height: 250px;
         width: 250px;

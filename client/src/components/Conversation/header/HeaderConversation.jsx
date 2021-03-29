@@ -1,13 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { changeConversation } from '../../../store/actions/conversations';
 
 import './HeaderConversation.scss'
-const HeaderConversation = ({ conversation, user }) => {
+const HeaderConversation = ({ conversation, user, isMobile, changeConversation }) => {
     var users = conversation.users.filter(u => u._id !== user._id);
     return (
         <header className="header-conversation">
             <div className="header-user">
+                {isMobile && <button className="icon back" onClick={() => changeConversation(null)}><i class="fas fa-chevron-left"></i></button>}
                 <div className="avt active">
-
                     {users.map((u, i) => <img src={"http://localhost:8888/uploads/" + u.avatar} alt="" key={i} />)}
                 </div>
                 <div>
@@ -37,5 +39,9 @@ const HeaderConversation = ({ conversation, user }) => {
         </header>
     )
 }
-
-export default HeaderConversation;
+function mapDispatchToProps(dispatch) {
+    return {
+        changeConversation: (index) => dispatch(changeConversation(index))
+    }
+}
+export default connect(null, mapDispatchToProps)(HeaderConversation);

@@ -5,11 +5,11 @@ import './conversation.scss'
 import HeaderConversation from '../../components/Conversation/header/HeaderConversation';
 import BodyConversation from '../../components/Conversation/body/BodyConversation';
 import FormConversation from '../../components/Conversation/form/FormConversation';
-const Conversation = ({ conversation, user }) => {
+const Conversation = ({ conversation, user, isMobile }) => {
     if (conversation)
         return (
             <div className="conversation">
-                <HeaderConversation conversation={conversation} user={user} />
+                <HeaderConversation conversation={conversation} user={user} isMobile={isMobile} />
                 <BodyConversation conversation={conversation} user={user} />
                 <FormConversation conversation={conversation} user={user} />
             </div>
